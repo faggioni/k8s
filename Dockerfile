@@ -1,9 +1,7 @@
 FROM node:18.20.4-alpine3.19
 WORKDIR /usr/src/app
-COPY package.json ./
-COPY yarn.lock ./
+COPY . ./
 RUN yarn install
-COPY . .
-EXPOSE 8080
+EXPOSE 3000
 RUN yarn build
 CMD [ "yarn", "start" ]
