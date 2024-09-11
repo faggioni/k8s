@@ -38,3 +38,9 @@ next-env.d.ts
 /.idea/material_theme_project_new.xml
 /.idea/vcs.xml
 .idea
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
