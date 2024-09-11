@@ -4,3 +4,44 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.10.1/samples
  */
+plugins {
+    id 'com.github.node-gradle.node' version '3.5.1'  // Node.js plugin
+}
+
+node {
+    // Version of Node.js to use
+    version = '18.17.0'
+    // Version of npm to use
+    npmVersion = '9.6.0'
+    // Location of the Node.js installation
+    download = true
+    // Set the working directory for npm tasks
+    workDir = file("${project.buildDir}/nodejs")
+    // Set the location of the npm cache
+    npmWorkDir = file("${project.buildDir}/npm")
+}
+
+task installDependencies(type: NpmTask) {
+    args = ['install']
+    workingDir = file('src')  // Assuming your Next.js app is in the src folder
+}
+
+task buildApp(type: NpmTask) {
+    args = ['run', 'build']
+    dependsOn installDependencies
+    workingDir = file('src')
+}
+
+task startApp(type: NpmTask) {
+    args = ['run', 'start']
+    dependsOn buildApp
+    workingDir = file('src')
+}
+
+task deployApp(type: NpmTask) {
+    args = ['run', 'deploy']  // Define your deploy script in package.json
+    dependsOn buildApp
+    workingDir = file('src')
+}
+
+build.dependsOn buildApp
