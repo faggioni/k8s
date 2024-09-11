@@ -8,7 +8,12 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                docker.build(DOCKER_IMAGE)
+                script{
+                    def image = docker.build(DOCKER_IMAGE)
+                    image.inside {
+                        sh "echo test"
+                    }
+                }
             }
         }
         stage('Push Docker Image') {
