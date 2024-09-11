@@ -9,7 +9,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script{
-                    def image = docker.build(DOCKER_IMAGE)
+                    image = docker.build(DOCKER_IMAGE)
                     image.inside {
                         sh "echo test"
                     }
