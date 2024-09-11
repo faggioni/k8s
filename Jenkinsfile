@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.digitalocean.com/faggioni', 'digital_ocean_login') {
-                        image.push("latest")
+                        image.push(DOCKER_IMAGE_VERSION)
                     }
                 }
             }
