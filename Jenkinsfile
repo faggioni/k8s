@@ -2,11 +2,13 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE_NAME = "faggioni/k8s"
+        DOCKER_IMAGE_VERSION = "0.0.${env.BUILD_NUMBER}"
+        DOCKER_IMAGE = "${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
     }
     stages {
         stage('Build Docker Image') {
             steps {
-                def image = docker.build("faggioni/k8s:${env.BUILD_NUMBER}")
+                docker.build(DOCKER_IMAGE)
             }
         }
         stage('Push Docker Image') {
